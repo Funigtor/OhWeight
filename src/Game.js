@@ -1,5 +1,5 @@
 var Bouffe = {         //}
-	_WIDTH: 800,   //}A mettre au début du premier fichier loadé 
+	_WIDTH: 800,   //}A mettre au début du premier fichier loadé
 	_HEIGHT: 600   //}(là c'est Game.js mais normalement c'est Boot.js)
 };                     //}
 Bouffe.Game = function(game) {};
@@ -9,13 +9,14 @@ Bouffe.Game.prototype = {
             this.load.image('ground', 'assets/platform.png');
             this.load.image('star', 'assets/Steak.png');
             this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-        },  
+        },
 	create: function(){
             //  We're going to be using physics, so enable the Arcade Physics system
             this.physics.startSystem(Phaser.Physics.ARCADE);
+						this.movementForce = 5;
             //  A simple background for our game
             this.add.sprite(4, 4, 'sky');
-            this.score = 10
+            this.score = 10;
             //  The platforms group contains the ground and the 2 ledges we can jump on
             this.platforms = this.add.group();
             //  We will enable physics for any object that is created in this group
@@ -26,7 +27,7 @@ Bouffe.Game.prototype = {
             this.ground.scale.setTo(2, 2);
             //  This stops it from falling away when you jump on it
             this.ground.body.immovable = true;
-            
+
             //  Now let's create two ledges
             this.ledge = this.platforms.create(400, 400, 'ground');
             this.ledge.body.immovable = true;
@@ -79,18 +80,32 @@ Bouffe.Game.prototype = {
             this.physics.arcade.overlap(this.player, this.stars, this.collectStar, null, this);
 
             //  Reset the players velocity (movement)
-            this.player.body.velocity.x = 0;
-            if (this.cursors.left.isDown){
-                //  Move to the left
-                this.player.body.velocity.x = -300;
 
+            if (this.cursors.left.isDown){
+                if (this.player.body.touching.down){
+                	if(this.player.body.velocity.x > -300){this.player.body.velocity.x -= 300;}
+								}
+								else{
+									if(this.player.body.velocity.x > -300){this.player.body.velocity.x -= 50;}
+								}
                 this.player.animations.play('left');
             }
             else if (this.cursors.right.isDown){
-                //  Move to the right
-                this.player.body.velocity.x = 300;
-
+							if (this.player.body.touching.down){
+								if(this.player.body.velocity.x < 300){this.player.body.velocity.x += 300;}
+							}
+							else{
+								if(this.player.body.velocity.x < 300){this.player.body.velocity.x += 50;}
+							}
                 this.player.animations.play('right');
+            }
+						else if (this.cursors.left.isUp && this.player.body.velocity.x < 0){
+								if (this.player.body.touching.down){this.player.body.velocity.x = 0;}
+                else{this.player.body.velocity.x += this.movementForce;}
+            }
+            else if (this.cursors.right.isUp && this.player.body.velocity.x > 0){
+							if (this.player.body.touching.down){this.player.body.velocity.x = 0;}
+							else{this.player.body.velocity.x -= this.movementForce;}
             }
             else{
                 //  Stand still
