@@ -5,8 +5,9 @@ var Bouffe = {
 Bouffe.Boot = function(game) {};
 Bouffe.Boot.prototype = {
 	preload: function() {
-		this.load.image('preloaderBg', 'img/loading-bg.png');
-		this.load.image('preloaderBar', 'img/loading-bar.png');
+		// TODO Ajouter des images pour le chargement 
+		//this.load.image('preloaderBg', 'img/loading-bg.png');
+		//this.load.image('preloaderBar', 'img/loading-bar.png');
 	},
 	create: function() {
 		this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
