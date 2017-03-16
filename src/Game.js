@@ -1,15 +1,5 @@
-var Bouffe = {         //}
-	_WIDTH: 800,   //}A mettre au début du premier fichier loadé
-	_HEIGHT: 600   //}(là c'est Game.js mais normalement c'est Boot.js)
-};                     //}
 Bouffe.Game = function(game) {};
 Bouffe.Game.prototype = {
-        preload: function(){
-            this.load.image('sky', 'assets/sky.jpg');
-            this.load.image('ground', 'assets/platform.png');
-            this.load.image('star', 'assets/Steak.png');
-            this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-        },
 	create: function(){
             //  We're going to be using physics, so enable the Arcade Physics system
             this.physics.startSystem(Phaser.Physics.ARCADE);
