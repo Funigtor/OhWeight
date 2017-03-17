@@ -67,7 +67,8 @@ Bouffe.Game.prototype = {
             }
 
             //  The score
-            this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+            this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+						this.scoreText.fixedToCamera = true;
 
             //  Our controls.
             this.cursors = this.input.keyboard.createCursorKeys();
@@ -135,6 +136,5 @@ Bouffe.Game.prototype = {
             //  Add and update the score
             this.score += 10;
             this.scoreText.text = 'Score: ' + this.score;
-						this.scoreText.fixedToCamera = true;
         }
 };
