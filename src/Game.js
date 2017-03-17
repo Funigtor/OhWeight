@@ -1,21 +1,12 @@
-var Bouffe = {         //}
-	_WIDTH: 800,   //}A mettre au début du premier fichier loadé
-	_HEIGHT: 600   //}(là c'est Game.js mais normalement c'est Boot.js)
-};                     //}
 Bouffe.Game = function(game) {};
 Bouffe.Game.prototype = {
-        preload: function(){
-            this.load.image('sky', 'assets/sky.jpg');
-            this.load.image('ground', 'assets/platform.png');
-            this.load.image('star', 'assets/Steak.png');
-            this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-        },
 	create: function(){
             //  We're going to be using physics, so enable the Arcade Physics system
             this.physics.startSystem(Phaser.Physics.ARCADE);
+						this.world.setBounds(0,0, 4000, 600);
 						this.movementForce = 5;
             //  A simple background for our game
-            this.add.sprite(4, 4, 'sky');
+            this.sky = this.add.tileSprite(0, 0, 4000, 2000, 'sky');
             this.score = 10;
             //  The platforms group contains the ground and the 2 ledges we can jump on
             this.platforms = this.add.group();
@@ -24,7 +15,7 @@ Bouffe.Game.prototype = {
             // Here we create the ground.
             this.ground = this.platforms.create(0, this.game.world.height - 32, 'ground');
             //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-            this.ground.scale.setTo(2, 2);
+            this.ground.scale.setTo(10, 2);
             //  This stops it from falling away when you jump on it
             this.ground.body.immovable = true;
 
@@ -50,6 +41,7 @@ Bouffe.Game.prototype = {
             this.player.animations.add('left', [0, 1, 2, 3], 10, true);
             this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
+						this.camera.follow(this.player);
             //  Finally some stars to collect
             this.stars = this.add.group();
             //  We will enable physics for any star that is created in this group
@@ -60,13 +52,15 @@ Bouffe.Game.prototype = {
                 //  Create a star inside of the 'stars' group
                 var star = this.stars.create(i * 70, 0, 'star');
                 //  Let gravity do its thing
+								star.scale.setTo(0.1,0.1);
                 star.body.gravity.y = 300;
                 //  This just gives each star a slightly random bounce value
                 star.body.bounce.y = 0.7 + Math.random() * 0.2;
             }
 
             //  The score
-            this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+            this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+						this.scoreText.fixedToCamera = true;
 
             //  Our controls.
             this.cursors = this.input.keyboard.createCursorKeys();
@@ -83,19 +77,27 @@ Bouffe.Game.prototype = {
 
             if (this.cursors.left.isDown){
                 if (this.player.body.touching.down){
-                	if(this.player.body.velocity.x > -300){this.player.body.velocity.x -= 300;}
+                	if(this.player.body.velocity.x > -300){
+										this.player.body.velocity.x -= 300;
+									}
 								}
 								else{
-									if(this.player.body.velocity.x > -300){this.player.body.velocity.x -= 50;}
+									if(this.player.body.velocity.x > -300){
+										this.player.body.velocity.x -= 50;
+									}
 								}
                 this.player.animations.play('left');
             }
             else if (this.cursors.right.isDown){
 							if (this.player.body.touching.down){
-								if(this.player.body.velocity.x < 300){this.player.body.velocity.x += 300;}
+								if(this.player.body.velocity.x < 300){
+									this.player.body.velocity.x += 300;
+								}
 							}
 							else{
-								if(this.player.body.velocity.x < 300){this.player.body.velocity.x += 50;}
+								if(this.player.body.velocity.x < 300){
+									this.player.body.velocity.x += 50;
+								}
 							}
                 this.player.animations.play('right');
             }
