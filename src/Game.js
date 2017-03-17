@@ -7,26 +7,26 @@ Bouffe.Game.prototype = {
 						this.movementForce = 5;
             //  A simple background for our game
             this.sky = this.add.tileSprite(0, 0, 4000, 2000, 'sky');
-            this.score = 10;
+            this.steakScore = 0;
             //  The platforms group contains the ground and the 2 ledges we can jump on
             this.platforms = this.add.group();
             //  We will enable physics for any object that is created in this group
             this.platforms.enableBody = true;
             // Here we create the ground.
-            this.ground = this.platforms.create(0, this.game.world.height - 32, 'ground');
+            this.ground = this.platforms.create(0, this.game.world.height - 16, 'ground');
             //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-            this.ground.scale.setTo(10, 2);
+            this.ground.scale.setTo(10, 0.5);
             //  This stops it from falling away when you jump on it
             this.ground.body.immovable = true;
 
-            //  Now let's create two ledges
-            this.ledge = this.platforms.create(400, 400, 'ground');
-            this.ledge.body.immovable = true;
-            this.ledge = this.platforms.create(-150, 250, 'ground');
-            this.ledge.body.immovable = true;
-            this.ledge = this.platforms.create(0,0, 'ground');
-            this.ledge.body.immovable = true;
-            this.ledge.scale.setTo(2.5, 0.5);
+            this.platform = [
+              ['ground', 400, 500, 0.3, 0.5, true],
+              ['ground', 250, 400, 0.3, 0.5, true],
+              ['ground', -50, 250, 0.5, 0.5, true],
+              ['ground', 100, 100, 1, 0.5, true],
+              ['ground', 600, 200, 1.5, 0.5, true],
+            ]
+            this.generateTerrain() ;
 
 
             // The player and its settings
@@ -34,8 +34,7 @@ Bouffe.Game.prototype = {
             //  We need to enable physics on the player
             this.physics.arcade.enable(this.player);
             //  Player physics properties. Give the little guy a slight bounce.
-            this.player.body.bounce.y = 0.2;
-            this.player.body.gravity.y = 1400;
+            this.player.body.gravity.y = 1500;
             this.player.body.collideWorldBounds = true;
             //  Our two animations, walking left and right.
             this.player.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -54,13 +53,12 @@ Bouffe.Game.prototype = {
                 //  Let gravity do its thing
 								star.scale.setTo(0.1,0.1);
                 star.body.gravity.y = 300;
-                //  This just gives each star a slightly random bounce value
-                star.body.bounce.y = 0.7 + Math.random() * 0.2;
             }
 
             //  The score
-            this.scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
-						this.scoreText.fixedToCamera = true;
+            this.scoreSteak = this.add.text(8, 8, 'Viande: 0/70g', { fontSize: '16px', fill: '#000' });
+            this.scoreSteak.fontSize = '16px';
+						this.scoreSteak.fixedToCamera = true;
 
             //  Our controls.
             this.cursors = this.input.keyboard.createCursorKeys();
@@ -70,8 +68,8 @@ Bouffe.Game.prototype = {
             //  Collide the player and the stars with the platforms
             this.physics.arcade.collide(this.player, this.platforms);
             this.physics.arcade.collide(this.stars, this.platforms);
-            //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-            this.physics.arcade.overlap(this.player, this.stars, this.collectStar, null, this);
+            //  Checks to see if the player overlaps with any of the stars, if he does call the collectSteak function
+            this.physics.arcade.overlap(this.player, this.stars, this.collectSteak, null, this);
 
             //  Reset the players velocity (movement)
 
@@ -119,14 +117,31 @@ Bouffe.Game.prototype = {
             //  Allow the player to jump if they are touching the ground.
             if (this.cursors.up.isDown && this.player.body.touching.down)
             {
-                this.player.body.velocity.y = -800;
+                this.player.body.velocity.y = -700;
+            }
+            if (this.cursors.down.isDown && !this.player.body.touching.down)
+            {
+                this.player.body.velocity.y = 700;
+                this.player.body.velocity.x = 0;
+                this.player.frame = 4;
             }
 	},
-        collectStar: function(player, star){
+        collectSteak: function(player, star){
             // Removes the star from the screen
             star.kill();
             //  Add and update the score
-            this.score += 10;
-            this.scoreText.text = 'Score: ' + this.score;
-        }
+            this.steakScore += 10;
+            this.scoreSteak.text = 'Viande: ' + this.steakScore + '/70g';
+            if(this.steakScore > 70){this.scoreSteak.fill = '#ff0000';}
+        },
+       createPlatform: function(platform){
+         this.ledge = this.platforms.create(platform[1], platform[2], platform[0]);
+         this.ledge.body.immovable = platform[5];
+         this.ledge.scale.setTo(platform[3], platform[4]);
+       },
+       generateTerrain: function(){
+         for(let i in this.platform){
+           this.createPlatform(this.platform[i]);
+         }
+       }
 };
