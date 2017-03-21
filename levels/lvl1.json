@@ -1,0 +1,19 @@
+{
+"background" : "sky",
+"platforms" : [["ground",450,500,0.3,0.5,true],["ground",250,400,0.3,0.5,true],["ground",-50,250,0.5,0.5,true],["ground",100,100,1,0.5,true],["ground",600,200,1.5,0.5,true]],
+"food" : [{
+    "name" : "Charcuterie",
+    "max" : 20,
+    "kindOfFood" : [{
+        "name" : "saucisson",
+        "positions" : [{"x": 500,"y": 0},{"x": 570,"y": 0},{"x": 640,"y": 0}]
+    }]
+},{
+    "name" : "Viande",
+    "max" : 70,
+    "kindOfFood" : [{
+        "name" : "steak",
+        "positions" : [{"x": 0,"y": 0},{"x": 70,"y": 0},{"x": 140,"y": 0},{"x": 210,"y": 0},{"x": 280,"y": 0},{"x": 350,"y": 0},{"x": 420,"y": 0},{"x": 490,"y": 0}]
+    }]
+}]
+}
