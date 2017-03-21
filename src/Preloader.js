@@ -8,6 +8,7 @@ Bouffe.Preloader.prototype = {
 			this.load.image('screen-mainmenu', 'assets/MainMenu.png');
 			this.load.spritesheet('button-start', 'assets/button-start.png', 146, 51);
             this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+			this.load.json('level-one', 'levels/lvl1.json');
 	},
 	create: function() {
 		this.game.state.start('MainMenu');

@@ -1,15 +1,15 @@
 Bouffe.Game = function(game) {};
 Bouffe.Game.prototype = {
 	create: function(){
+            // Loading an object describing the level
+            this.levelData = this.cache.getJSON('level-one');
             //  We're going to be using physics, so enable the Arcade Physics system
             this.physics.startSystem(Phaser.Physics.ARCADE);
 						this.world.setBounds(0,0, 4000, 600);
 						this.movementForce = 5;
             //  A simple background for our game
-            this.sky = this.add.tileSprite(0, 0, 4000, 2000, 'sky');
-						this.sky.fixedToCamera = true;
-            this.steakScore = 0;
-            this.saucissonScore = 0;
+            this.bg = this.add.tileSprite(0,0,4000,2000,this.levelData.background);
+            this.bg.fixedToCamera = true;
             //  The platforms group contains the ground and the 2 ledges we can jump on
             this.platforms = this.add.group();
             //  We will enable physics for any object that is created in this group
@@ -21,13 +21,7 @@ Bouffe.Game.prototype = {
             //  This stops it from falling away when you jump on it
             this.ground.body.immovable = true;
 
-            this.platform = [
-              ['ground', 450, 500, 0.3, 0.5, true],
-              ['ground', 250, 400, 0.3, 0.5, true],
-              ['ground', -50, 250, 0.5, 0.5, true],
-              ['ground', 100, 100, 1, 0.5, true],
-              ['ground', 600, 200, 1.5, 0.5, true],
-            ]
+            this.platform = this.levelData.platforms;
             this.generateTerrain() ;
 
 
@@ -43,31 +37,41 @@ Bouffe.Game.prototype = {
             this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
 						this.camera.follow(this.player);
-            this.steaks = this.add.group();
-            this.steaks.enableBody = true;
-            for (var i = 0; i < 8; i++)
-            {
-                var steak = this.steaks.create(i * 70, 0, 'steak');
-								steak.scale.setTo(0.1,0.1);
-                steak.body.gravity.y = 300;
-            }
 
-            this.saucissons = this.add.group();
-            this.saucissons.enableBody = true;
-            for (var i = 0; i < 3; i++)
-            {
-                var saucisson = this.saucissons.create(i * 70 + 500, 0, 'saucisson');
-								saucisson.scale.setTo(0.25,0.2);
-                saucisson.body.gravity.y = 300;
-            }
+
+            this.aliments = this.add.group();
+            this.aliments.enableBody = true;
+            var alimStock = new Array();
+            for(let aliment of this.levelData.food) {
+              for (let typeOf of aliment.kindOfFood) {
+                let createName  = typeOf.name;
+                for (let itm of typeOf.positions){
+                  var itemTmp = alimentGenerator(createName,itm.x,itm.y);
+                  var item = this.aliments.create(itemTmp.pos.x,itemTmp.pos.y,itemTmp.img);
+                  if (itemTmp.hasOwnProperty("scale")) item.scale.setTo(itemTmp.scale[0],itemTmp.scale[1]);
+                  item.body.gravity.y = 300; 
+                  item.sortOfItem = aliment.name;
+                  item.sizeOfItem = itemTmp.weight;
+                  item.maxOf = aliment.max;
+                  alimStock.push(item);
+                }
+              }
+            } 
+          
 
             //  The score
-            this.scoreSteak = this.add.text(8, 8, 'Viande: 0/70g', { fontSize: '16px', fill: '#000' });
-            this.scoreSteak.fontSize = '16px';
-						this.scoreSteak.fixedToCamera = true;
-            this.scoreSaucisson = this.add.text(8, 24, 'Charcuterie: 0/20g', { fontSize: '16px', fill: '#000' });
-            this.scoreSaucisson.fontSize = '16px';
-						this.scoreSaucisson.fixedToCamera = true;
+            this.score = new Object();
+            this.score.value = new Map();
+            this.score.max = new Map();
+            this.score.text = new Map();
+            for (let aliment of this.levelData.food){
+              this.score.value.set(aliment.name,0);
+              this.score.max.set(aliment.name,aliment.max);
+              let text = this.add.text(8,8+16*this.score.value.size -1, aliment.name+': ' + 0+'/'+aliment.max+'g',{ fontSize: '16px', fill: '#000' })
+              text.fontSize = '16px';
+              text.fixedToCamera = true;
+              this.score.text.set(aliment.name,text)
+            }
 
             //  Our controls.
             this.cursors = this.input.keyboard.createCursorKeys();
@@ -76,11 +80,9 @@ Bouffe.Game.prototype = {
 	update: function() {
             //  Collide the player and the steaks with the platforms
             this.physics.arcade.collide(this.player, this.platforms);
-            this.physics.arcade.collide(this.steaks, this.platforms);
-            this.physics.arcade.collide(this.saucissons, this.platforms);
+            this.physics.arcade.collide(this.aliments, this.platforms);
             //  Checks to see if the player overlaps with any of the steaks, if he does call the collectSteak function
-            this.physics.arcade.overlap(this.player, this.steaks, this.collectSteak, null, this);
-            this.physics.arcade.overlap(this.player, this.saucissons, this.collectSaucissons, null, this);
+            this.physics.arcade.overlap(this.player, this.aliments, this.collectAliment, null, this);
 
             //  Reset the players velocity (movement)
 
@@ -137,17 +139,15 @@ Bouffe.Game.prototype = {
                 this.player.frame = 4;
             }
 	},
-      collectSteak: function(player, steak){
-          steak.kill();
-          this.steakScore += 10;
-          this.scoreSteak.text = 'Viande: ' + this.steakScore + '/70g';
-          if(this.steakScore > 70){this.scoreSteak.fill = '#ff0000';}
-      },
-      collectSaucissons: function(player, saucisson){
-          saucisson.kill();
-          this.saucissonScore += 10;
-          this.scoreSaucisson.text = 'Charcuterie: ' + this.saucissonScore + '/20g';
-          if(this.saucissonScore > 20){this.scoreSaucisson.fill = '#ff0000';}
+      collectAliment: function(player, aliment){
+          aliment.kill();
+          this.score.value.set(aliment.sortOfItem,this.score.value.get(aliment.sortOfItem) + aliment.sizeOfItem)
+          console.log(this.score.value.get(aliment.sortOfItem))
+          // text generation
+          let text = aliment.sortOfItem+': ' +this.score.value.get(aliment.sortOfItem) +'/'+aliment.maxOf+'g';
+          this.score.text.get(aliment.sortOfItem).setText(text)
+          //this.scoreSteak.text = 'Viande: ' + this.steakScore + '/70g';
+          if (this.score.value.get(aliment.sortOfItem) > aliment.maxOf){this.score.text.get(aliment.sortOfItem).fill = '#ff0000';}
       },
        createPlatform: function(platform){
          this.ledge = this.platforms.create(platform[1], platform[2], platform[0]);
