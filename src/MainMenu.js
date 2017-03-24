@@ -5,7 +5,7 @@ Bouffe.MainMenu = function(game) {
 		this.startButton = this.add.button(Bouffe._WIDTH*0.75, Bouffe._HEIGHT*0.66, 'button-start', this.startGame, this, 2, 0, 1);
 		this.startButton.anchor.set(0.5,0);
 		this.startButton.input.useHandCursor = true;
-		keyStart = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		keyStart = this.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 	};
 
 	this.update = function() {
