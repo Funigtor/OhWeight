@@ -3,7 +3,6 @@ Bouffe.Preloader.prototype = {
 	preload: function() {
             this.load.image('sky', 'assets/sky.png');
             this.load.image('ground', 'assets/platform.png');
-            this.load.image('bumper', 'assets/Bumper.png');
             this.load.image('steak', 'assets/Steak.png');
             this.load.image('saucisson', 'assets/saucisson.png',243,207);
 			this.load.image('screen-mainmenu', 'assets/MainMenu.png');
