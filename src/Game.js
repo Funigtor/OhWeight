@@ -56,8 +56,20 @@ Bouffe.Game.prototype = {
                   alimStock.push(item);
                 }
               }
-            } 
-          
+            }
+        //the bumpers
+		    this.bumpers = this.add.group();
+		    this.bumpers.enableBody = true;
+			var Bumpers = new Array();
+            for(let bump of this.levelData.bumpers) {
+              for (let itm of bump.positions){
+                var item = this.bumpers.create(itm.x,itm.y,'bumper');
+                item.scale.setTo(2, 1.5);
+				item.body.immovable = true;
+                Bumpers.push(item);
+              }
+            }
+
 
             //  The score
             this.score = new Object();
@@ -81,6 +93,7 @@ Bouffe.Game.prototype = {
             //  Collide the player and the steaks with the platforms
             this.physics.arcade.collide(this.player, this.platforms);
             this.physics.arcade.collide(this.aliments, this.platforms);
+            this.physics.arcade.collide(this.player, this.bumpers,this.bumpUp, this.checkBump, this);
             //  Checks to see if the player overlaps with any of the steaks, if he does call the collectSteak function
             this.physics.arcade.overlap(this.player, this.aliments, this.collectAliment, null, this);
 
@@ -155,5 +168,14 @@ Bouffe.Game.prototype = {
          for(let i in this.platform){
            this.createPlatform(this.platform[i]);
          }
-       }
+       },
+			 bumpUp: function(){
+				 this.player.body.velocity.y = -1000;
+			 },
+			 checkBump: function(player,bumper){
+				 if(player.body.touching.down == true && (player.body.touching.left == false && player.body.touching.right == false && player.body.touching.up == false)){
+					 return false;
+				 }
+				 return true;
+			 }
 };
