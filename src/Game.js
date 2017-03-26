@@ -41,7 +41,7 @@ Bouffe.Game.prototype = {
 
             this.aliments = this.add.group();
             this.aliments.enableBody = true;
-            var alimStock = new Array();
+			var alimStock = new Array();
             for(let aliment of this.levelData.food) {
               for (let typeOf of aliment.kindOfFood) {
                 let createName  = typeOf.name;
@@ -49,7 +49,7 @@ Bouffe.Game.prototype = {
                   var itemTmp = alimentGenerator(createName,itm.x,itm.y);
                   var item = this.aliments.create(itemTmp.pos.x,itemTmp.pos.y,itemTmp.img);
                   if (itemTmp.hasOwnProperty("scale")) item.scale.setTo(itemTmp.scale[0],itemTmp.scale[1]);
-                  item.body.gravity.y = 300; 
+                  item.body.gravity.y = 300;
                   item.sortOfItem = aliment.name;
                   item.sizeOfItem = itemTmp.weight;
                   item.maxOf = aliment.max;
@@ -84,7 +84,6 @@ Bouffe.Game.prototype = {
             //  Checks to see if the player overlaps with any of the steaks, if he does call the collectSteak function
             this.physics.arcade.overlap(this.player, this.aliments, this.collectAliment, null, this);
 
-            //  Reset the players velocity (movement)
 
             if (this.cursors.left.isDown){
                 if (this.player.body.touching.down){
@@ -94,7 +93,7 @@ Bouffe.Game.prototype = {
 								}
 								else{
 									if(this.player.body.velocity.x > -300){
-										this.player.body.velocity.x -= 50;
+										this.player.body.velocity.x -= 25;
 									}
 								}
                 this.player.animations.play('left');
@@ -107,7 +106,7 @@ Bouffe.Game.prototype = {
 							}
 							else{
 								if(this.player.body.velocity.x < 300){
-									this.player.body.velocity.x += 50;
+									this.player.body.velocity.x += 25;
 								}
 							}
                 this.player.animations.play('right');
@@ -144,7 +143,7 @@ Bouffe.Game.prototype = {
           this.score.value.set(aliment.sortOfItem,this.score.value.get(aliment.sortOfItem) + aliment.sizeOfItem)
           // text generation
           let text = aliment.sortOfItem+': ' +this.score.value.get(aliment.sortOfItem) +'/'+aliment.maxOf+'g';
-          this.score.text.get(aliment.sortOfItem).setText(text)
+          this.score.text.get(aliment.sortOfItem).setText(text);
           if (this.score.value.get(aliment.sortOfItem) > aliment.maxOf){this.score.text.get(aliment.sortOfItem).fill = '#ff0000';}
       },
        createPlatform: function(platform){
