@@ -11,7 +11,7 @@ Bouffe.Preloader.prototype = {
 			this.load.spritesheet('button-dude', 'assets/boutondude.png', 100, 100);
 			this.load.spritesheet('button-dudette', 'assets/boutondudette.png', 100, 100);
             this.load.spritesheet('dude', 'assets/dude.png', 32, 36);
-			this.load.spritesheet('dudette', 'assets/dudette.png', 32, 48);
+			this.load.spritesheet('dudette', 'assets/dudette.png', 32, 36);
 			this.load.json('level-one', 'levels/lvl1.json');
 	},
 	create: function() {
