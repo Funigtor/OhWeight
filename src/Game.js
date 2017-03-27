@@ -1,5 +1,8 @@
 Bouffe.Game = function(game) {};
 Bouffe.Game.prototype = {
+  init: function(userData){
+    this.userData = userData;
+  },
 	create: function(){
             // Loading an object describing the level
             this.levelData = this.cache.getJSON('level-one');
@@ -26,7 +29,7 @@ Bouffe.Game.prototype = {
 
 
             // The player and its settings
-            this.player = this.add.sprite(32, this.game.world.height - 150, 'dude');
+            this.player = this.add.sprite(32, this.game.world.height - 150, this.userData.personnage);
             //  We need to enable physics on the player
             this.physics.arcade.enable(this.player);
             //  Player physics properties. Give the little guy a slight bounce.
