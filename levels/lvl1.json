@@ -1,21 +1,84 @@
 {
 "background" : "sky",
-"platforms" : [["ground",450,500,0.3,0.5,true],["ground",250,400,0.3,0.5,true],["ground",-50,250,0.5,0.5,true],["ground",100,100,1,0.5,true],["ground",600,200,1.5,0.5,true]],
+"platforms" : [["ground",450,500,0.3,0.5,true],["ground",250,400,0.3,0.5,true],["ground",-50,250,0.5,0.5,true],["ground",100,100,1,0.5,true],["ground",600,200,1.5,0.5,true],["ground",1200,300,5,0.5,true]],
 "food" : [{
     "name" : "Charcuterie",
     "max" : 20,
     "kindOfFood" : [{
         "name" : "saucisson",
-        "positions" : [{"x": 500,"y": 0},{"x": 570,"y": 0},{"x": 640,"y": 0}]
+        "positions" : [{"x": 500,"y": 50},{"x": 570,"y": 50},{"x": 640,"y": 50}]
     }]
 },{
     "name" : "Viande",
     "max" : 70,
     "kindOfFood" : [{
         "name" : "steak",
-        "positions" : [{"x": 0,"y": 0},{"x": 70,"y": 0},{"x": 140,"y": 0},{"x": 210,"y": 0},{"x": 280,"y": 0},{"x": 350,"y": 0},{"x": 420,"y": 0},{"x": 490,"y": 0}]
+        "positions" : [{"x": 0,"y": 50},{"x": 70,"y": 50},{"x": 140,"y": 50},{"x": 210,"y": 50},{"x": 280,"y": 50},{"x": 350,"y": 50},{"x": 420,"y": 50},{"x": 490,"y": 50}]
+    }]
+},{
+    "name" : "Volaille",
+    "max" : 120,
+    "kindOfFood" : [{
+        "name" : "poulet",
+        "positions" : [{"x": 710,"y": 50},{"x": 780,"y": 50}]
+    }]
+},{
+    "name" : "Feculents",
+    "max" : 260,
+    "kindOfFood" : [{
+        "name" : "patate",
+        "positions" : [{"x": 850,"y": 50},{"x": 920,"y": 50}]
+    }]
+},{
+    "name" : "Legumes",
+    "max" : 280,
+    "kindOfFood" : [{
+        "name" : "carotte",
+        "positions" : [{"x": 970,"y": 50},{"x": 1040,"y": 50}]
+    }]
+},{
+    "name" : "Fruits",
+    "max" : 370,
+    "kindOfFood" : [{
+        "name" : "banane",
+        "positions" : [{"x": 1530,"y": 50},{"x": 1600,"y": 50}]
+    }]
+},{
+    "name" : "Legumineuses",
+    "max" : 60,
+    "kindOfFood" : [{
+        "name" : "haricot",
+        "positions" : [{"x": 1110,"y": 50},{"x": 1180,"y": 50}]
+    }]
+},{
+    "name" : "Sel",
+    "max" : 5,
+    "kindOfFood" : [{
+        "name" : "nicolas",
+        "positions" : [{"x": 1250,"y": 50},{"x": 1320,"y": 50}]
+    }]
+},{
+    "name" : "Poisson",
+    "max" : 70,
+    "kindOfFood" : [{
+        "name" : "magikarp",
+        "positions" : [{"x": 1390,"y": 50},{"x": 1460,"y": 50}]
     }]
 }],
+"junkfood" : [
+  {
+      "name" : "andrew",
+      "positions" : [{"x": 2090,"y": 100},{"x": 2160,"y": 100}]
+  },{
+      "name" : "mensonge",
+      "positions" : [{"x": 1670,"y": 100},{"x": 1740,"y": 100}]
+  },{
+      "name" : "cornetto",
+      "positions" : [{"x": 1810,"y": 100},{"x": 1880,"y": 100}]
+  },{
+      "name" : "sprite",
+      "positions" : [{"x": 1950,"y": 100},{"x": 2020,"y": 100}]
+  }],
 "bumpers" : [
   {"positions" : [{"x":130,"y":568},{"x":330,"y":380}]}
 ]

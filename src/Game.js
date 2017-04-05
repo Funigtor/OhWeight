@@ -41,7 +41,7 @@ Bouffe.Game.prototype = {
 
 						this.camera.follow(this.player);
 
-
+            //The aliments
             this.aliments = this.add.group();
             this.aliments.enableBody = true;
 			var alimStock = new Array();
@@ -52,7 +52,7 @@ Bouffe.Game.prototype = {
                   var itemTmp = alimentGenerator(createName,itm.x,itm.y);
                   var item = this.aliments.create(itemTmp.pos.x,itemTmp.pos.y,itemTmp.img);
                   if (itemTmp.hasOwnProperty("scale")) item.scale.setTo(itemTmp.scale[0],itemTmp.scale[1]);
-                  item.body.gravity.y = 300;
+                  item.body.gravity.y = 0;
                   item.sortOfItem = aliment.name;
                   item.sizeOfItem = itemTmp.weight;
                   item.maxOf = aliment.max;
@@ -60,6 +60,22 @@ Bouffe.Game.prototype = {
                 }
               }
             }
+
+            //Junk food
+            this.junkfood = this.add.group();
+            this.junkfood.enableBody = true;
+			var Junky = new Array();
+            for(let junk of this.levelData.junkfood) {
+              let createName  = junk.name;
+              for (let itm of junk.positions){
+                var itemTmp = junkfoodGenerator(createName,itm.x,itm.y);
+                var item = this.junkfood.create(itemTmp.pos.x,itemTmp.pos.y,itemTmp.img);
+                if (itemTmp.hasOwnProperty("scale")) item.scale.setTo(itemTmp.scale[0],itemTmp.scale[1]);
+                item.body.gravity.y = 0;
+                Junky.push(item);
+              }
+            }
+
         //the bumpers
 		    this.bumpers = this.add.group();
 		    this.bumpers.enableBody = true;
@@ -68,7 +84,7 @@ Bouffe.Game.prototype = {
               for (let itm of bump.positions){
                 var item = this.bumpers.create(itm.x,itm.y,'bumper');
                 item.scale.setTo(2, 1.5);
-				item.body.immovable = true;
+				        item.body.immovable = true;
                 Bumpers.push(item);
               }
             }
