@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Éditeur de niveau</title>
+	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+	<style> body { margin: 0; } </style>
+	<script src="src/phaser.min.js"></script>
+	<script src="src/LevelEditor/LE_Boot.js"></script>
+	<script src="src/LevelEditor/LE_Preloader.js"></script>
+	<script src="src/LevelEditor/LevelEditor.js"></script>
+</head>
+<body>
+<script>
+(function() {
+	var game = new Phaser.Game(800, 600, Phaser.AUTO, '');
+    // LE_baguette
+	game.state.add('LE_Boot', Bouffe.LE_Boot);
+	game.state.add('LE_Preloader', Bouffe.LE_Preloader);
+	game.state.add('LevelEditor', Bouffe.LevelEditor);
+	game.state.start('LE_Boot');
+})();
+</script>
+<div id="exported"> <!-- Generated JSON will be here --> </div>
+</body>
+</html>
