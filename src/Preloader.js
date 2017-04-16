@@ -13,7 +13,7 @@ Bouffe.Preloader.prototype = {
             this.load.image('nicolas', 'assets/sel.png');
             this.load.image('haricot', 'assets/flageolaient.png');
             this.load.image('saucisson', 'assets/saucisson test.png');
-            this.load.image('andrew', 'assets/burger.png');
+            this.load.image('andrew', 'assets/Burger.png');
             this.load.image('cornetto', 'assets/glace.png');
             this.load.image('mensonge', 'assets/GATAL.png');
             this.load.image('sprite', 'assets/sodo.png');
