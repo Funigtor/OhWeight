@@ -1,5 +1,8 @@
 Bouffe.LE_Preloader = function(game) {};
 Bouffe.LE_Preloader.prototype = {
+    init: function(arg) {
+        this.levelData = arg;
+    },
 	preload: function() {
             this.load.image('sky', 'assets/sky.png');
             this.load.image('ground', 'assets/platform.png');
@@ -27,6 +30,6 @@ Bouffe.LE_Preloader.prototype = {
 			this.load.json('level-one', 'levels/lvl1.json');
 	},
 	create: function() {
-		this.game.state.start('LevelEditor');
+		this.game.state.start('LevelEditor',false,false,this.levelData);
 	}
 };

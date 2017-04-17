@@ -4,6 +4,9 @@ var Bouffe = {
 };
 Bouffe.LE_Boot = function(game) {};
 Bouffe.LE_Boot.prototype = {
+    init: function(arg) {
+        this.levelData = arg;
+    },
 	preload: function() {
 	
 	},
@@ -11,6 +14,6 @@ Bouffe.LE_Boot.prototype = {
 		this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		this.game.scale.pageAlignHorizontally = true;
 		this.game.scale.pageAlignVertically = true;
-		this.game.state.start('LE_Preloader');
+		this.game.state.start('LE_Preloader',false,false,this.levelData);
 	}
 };
