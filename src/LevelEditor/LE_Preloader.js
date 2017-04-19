@@ -21,7 +21,9 @@ Bouffe.LE_Preloader.prototype = {
             this.load.image('mensonge', 'assets/GATAL.png');
             this.load.image('sprite', 'assets/sodo.png');
 			this.load.image('screen-mainmenu', 'assets/MainMenu.png');
-			this.load.image('select','assets/select.png')
+			this.load.image('select','assets/select.png');
+            this.load.image('bPlateforme','assets/levelEditor/bPlateforme.png');
+            this.load.image('bExporter','assets/levelEditor/bExporter.png');
 			this.load.spritesheet('button-start', 'assets/button-start.png', 146, 51);
 			this.load.spritesheet('button-dude', 'assets/boutondude.png', 100, 100);
 			this.load.spritesheet('button-dudette', 'assets/boutondudette.png', 100, 100);
