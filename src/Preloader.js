@@ -1,6 +1,7 @@
 Bouffe.Preloader = function(game) {};
 Bouffe.Preloader.prototype = {
 	preload: function() {
+						this.load.image('youdied', 'assets/youdied.png');
             this.load.image('sky', 'assets/sky.png');
             this.load.image('ground', 'assets/platform.png');
             this.load.image('bumper', 'assets/Bumper.png');

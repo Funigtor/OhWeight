@@ -10,6 +10,8 @@ Bouffe.Game.prototype = {
             this.physics.startSystem(Phaser.Physics.ARCADE);
 						this.world.setBounds(0,0, 4000, 600);
 						this.movementForce = 5;
+            this.speed =300;
+            this.dead = 0;
             //  A simple background for our game
             this.bg = this.add.tileSprite(0,0,4000,2000,this.levelData.background);
             this.bg.fixedToCamera = true;
@@ -115,30 +117,31 @@ Bouffe.Game.prototype = {
             this.physics.arcade.collide(this.player, this.bumpers,this.bumpUp, this.checkBump, this);
             //  Checks to see if the player overlaps with any of the steaks, if he does call the collectSteak function
             this.physics.arcade.overlap(this.player, this.aliments, this.collectAliment, null, this);
+            this.physics.arcade.overlap(this.player, this.junkfood, this.death, null, this);
 
 
-            if (this.cursors.left.isDown){
+            if (this.cursors.left.isDown  && this.dead == 0){
                 if (this.player.body.touching.down){
-                	if(this.player.body.velocity.x > -300){
-										this.player.body.velocity.x -= 300;
+                	if(this.player.body.velocity.x > -this.speed){
+										this.player.body.velocity.x -= this.speed;
 									}
 								}
 								else{
-									if(this.player.body.velocity.x > -300){
-										this.player.body.velocity.x -= 25;
+									if(this.player.body.velocity.x > -this.speed){
+										this.player.body.velocity.x -= this.speed/12;
 									}
 								}
                 this.player.animations.play('left');
             }
-            else if (this.cursors.right.isDown){
+            else if (this.cursors.right.isDown && this.dead == 0){
 							if (this.player.body.touching.down){
-								if(this.player.body.velocity.x < 300){
-									this.player.body.velocity.x += 300;
+								if(this.player.body.velocity.x < this.speed){
+									this.player.body.velocity.x += this.speed;
 								}
 							}
 							else{
-								if(this.player.body.velocity.x < 300){
-									this.player.body.velocity.x += 25;
+								if(this.player.body.velocity.x < this.speed){
+									this.player.body.velocity.x += this.speed/12;
 								}
 							}
                 this.player.animations.play('right');
@@ -161,11 +164,11 @@ Bouffe.Game.prototype = {
             //  Allow the player to jump if they are touching the ground.
             if (this.cursors.up.isDown && this.player.body.touching.down)
             {
-                this.player.body.velocity.y = -700;
+                this.player.body.velocity.y = -this.speed*7/3;
             }
             if (this.cursors.down.isDown && !this.player.body.touching.down)
             {
-                this.player.body.velocity.y = 700;
+                this.player.body.velocity.y = this.speed*7/3;
                 this.player.body.velocity.x = 0;
                 this.player.frame = 4;
             }
@@ -188,6 +191,18 @@ Bouffe.Game.prototype = {
            this.createPlatform(this.platform[i]);
          }
        },
+       death: function(player , junkfood){
+        junkfood.kill();
+         this.speed  *=9/10 ;
+         if(this.speed <= 200){
+           this.dead = 1;
+           this.speed = 1;
+           this.player.body.velocity.y = 2000;
+           this.youdied = this.add.sprite(this.game.camera.x,this.game.camera.y + 280 ,'youdied');
+           this.ground.scale.setTo(1, 1.4);
+
+         }
+       },
 			 bumpUp: function(){
 				 this.player.body.velocity.y = -1000;
 			 },
@@ -197,4 +212,5 @@ Bouffe.Game.prototype = {
 				 }
 				 return true;
 			 }
+
 };
