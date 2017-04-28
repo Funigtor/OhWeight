@@ -199,8 +199,8 @@ Bouffe.Game.prototype = {
            this.speed = 1;
            this.player.body.velocity.y = 2000;
            this.youdied = this.add.sprite(this.game.camera.x,this.game.camera.y + 280 ,'youdied');
-           this.ground.scale.setTo(1, 1.4);
-
+           this.camera.follow(null);
+           //this.youdied.scale.setTo(1.2, 1.4);
          }
        },
 			 bumpUp: function(){
