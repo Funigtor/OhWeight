@@ -5,7 +5,7 @@ Bouffe.Game.prototype = {
   },
 	create: function(){
             // Loading an object describing the level
-            this.levelData = this.cache.getJSON(this.userData.level);
+            (this.userData.level == "custom") ? this.levelData = this.userData.userLevel : this.levelData = this.cache.getJSON(this.userData.level);           
             //  We're going to be using physics, so enable the Arcade Physics system
             this.physics.startSystem(Phaser.Physics.ARCADE);
 						this.world.setBounds(0,0, 4000, 600);
