@@ -7,6 +7,8 @@
 	<link rel="stylesheet" href="src/LevelEditor/style.css">
     <script src="src/LevelEditor/jquery-3.2.1.min.js"></script>
 	<script src="src/phaser.min.js"></script>
+    <script src="src/aliment.js"></script>
+    <script src="src/junkfood.js"></script>
 	<script src="src/LevelEditor/LE_Boot.js"></script>
 	<script src="src/LevelEditor/LE_Preloader.js"></script>
 	<script src="src/LevelEditor/LevelEditor.js"></script>
@@ -16,7 +18,12 @@
         <h1>Éditeur de niveau</h1>
         Bonjour, et bienvenue dans l'éditeur de niveau.
         Avant de commencer, nous avons quelques questions à te poser.
-        <h2>Choisis un background.</h2>
+        <h3>Si tu veux importer un JSON insère-le ici </h3>
+        <form>
+            <input id="importJSON"></input>
+            <button id="bImport">Continuer à créer !</button>
+        </form>
+        <h2>Sinon, choisis un background.</h2>
         <form id="choice">
             <select name="bg" id="bg">
                <option value="">Faire un choix</option>
@@ -47,8 +54,8 @@
     })
 
 
-    // Action du bouton
-    $("button").on("click", function(event){
+    // Action des boutons
+    $("#bValider").on("click", function(event){
         event.preventDefault();
         var dataCreation = new Object;
         dataCreation.background = $("#bg option").filter(":selected").text();
@@ -56,6 +63,18 @@
             alert ('Choisis un background')
         } else {
             createGame(dataCreation);
+        }
+    })
+    $("#bImport").on("click", function(event){
+        event.preventDefault();
+        var dataCreation = new Object;
+        try {
+            dataCreation = JSON.parse($("#importJSON").val());
+            dataCreation.imported = true;
+            createGame(dataCreation);
+        } 
+        catch (SyntaxError){
+            alert ('Rentre un JSON')
         }
     })
 
