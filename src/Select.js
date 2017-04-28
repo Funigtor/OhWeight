@@ -16,6 +16,6 @@ Bouffe.Select = function(game) {
      
 
     this.startGame = function() {
-		this.game.state.start('Game',false,false,this.userData);
+		this.game.state.start('Game',true,false,this.userData);
 	};
 }

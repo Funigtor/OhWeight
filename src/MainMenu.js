@@ -21,7 +21,7 @@ Bouffe.MainMenu = function(game) {
 	};
 
 	this.startGame = function() {
-		this.game.state.start('Select',false,false,userData);
+		this.game.state.start('Select',true,false,userData);
 	};
 
 	this.changePerso = function(){
