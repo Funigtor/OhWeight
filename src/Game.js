@@ -199,12 +199,18 @@ Bouffe.Game.prototype = {
            this.speed = 1;
            this.player.body.velocity.y = 2000;
            this.youdied = this.add.sprite(this.game.camera.x,this.game.camera.y + 280 ,'youdied');
-           this.startButton = this.add.button(this.game.camera.x +250,this.game.camera.y + 400, 'button-start', this.returnMenu, this, 2, 0, 1);
+           this.startButton = this.add.button(this.game.camera.x +250,this.game.camera.y + 400, 'button-start', this.retry, this, 2, 0, 1);
+       		 this.startButton.anchor.set(0.5,0);
+       		 this.startButton.input.useHandCursor = true;
+           this.startButton = this.add.button(this.game.camera.x +550,this.game.camera.y + 400, 'button-start', this.returnMenu, this, 2, 0, 1);
        		 this.startButton.anchor.set(0.5,0);
        		 this.startButton.input.useHandCursor = true;
            this.camera.follow(null);
            //this.youdied.scale.setTo(1.2, 1.4);
          }
+       },
+       retry : function(){
+        this.game.state.start('Game',true,false,this.userData);
        },
        returnMenu : function() {
          this.game.state.start('MainMenu');
