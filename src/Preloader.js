@@ -28,6 +28,7 @@ Bouffe.Preloader.prototype = {
             this.load.spritesheet('dude', 'assets/dude.png', 32, 36);
 			this.load.spritesheet('dudette', 'assets/dudette.png', 32, 36);
 			this.load.json('level-one', 'levels/lvl1.json');
+            this.load.audio('Ah','audio/AH.ogg');
 	},
 	create: function() {
 		this.game.state.start('MainMenu');
