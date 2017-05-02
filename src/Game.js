@@ -180,6 +180,7 @@ Bouffe.Game.prototype = {
           let text = aliment.sortOfItem+': ' +this.score.value.get(aliment.sortOfItem) +'/'+aliment.maxOf+'g';
           this.score.text.get(aliment.sortOfItem).setText(text);
           if (this.score.value.get(aliment.sortOfItem) > aliment.maxOf){this.score.text.get(aliment.sortOfItem).fill = '#ff0000';}
+          this.game.sound.play('miam');
       },
        createPlatform: function(platform){
          this.ledge = this.platforms.create(platform[1], platform[2], platform[0]);
