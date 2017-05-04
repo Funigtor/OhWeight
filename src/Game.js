@@ -207,6 +207,7 @@ Bouffe.Game.prototype = {
        		 this.startButton.anchor.set(0.5,0);
        		 this.startButton.input.useHandCursor = true;
            this.camera.follow(null);
+           this.game.sound.play("death");
            //this.youdied.scale.setTo(1.2, 1.4);
          }
        },

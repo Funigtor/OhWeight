@@ -30,6 +30,7 @@ Bouffe.Preloader.prototype = {
 			this.load.json('level-one', 'levels/lvl1.json');
             this.load.audio('Ah','audio/AH.ogg');
             this.load.audio('miam','audio/miam.ogg');
+            this.load.audio('death','audio/yourefat.ogg');
 	},
 	create: function() {
 		this.game.state.start('MainMenu');
