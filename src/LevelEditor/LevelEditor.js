@@ -101,6 +101,7 @@ Bouffe.LevelEditor = function(game) {
 	};
 	this.createPlatform = function(){
 		var previewPlatform = platforms.create(this.input.mousePointer.x, this.input.mousePointer.y, 'ground');
+    previewPlatform.idPlat = levelData.platforms.length;
 		previewPlatform.inputEnabled = true;
 		previewPlatform.input.enableDrag();
 		previewPlatform.events.onDragStart.add(this.onDragStart,this);
@@ -111,11 +112,11 @@ Bouffe.LevelEditor = function(game) {
 	};
 
   this.onDragStart = function(sprite,pointer){
-		//trouver la plateforme et la supprimer du levelData
+    
 	};
 
 	this.onDragStop = function(sprite,pointer){
-		levelData.platforms.push(["ground",sprite.left,sprite.top,0.3,0.5,true]);
+		levelData.platforms[sprite.idPlat] = (["ground",sprite.left,sprite.top,0.3,0.5,true]);
 	};
 
 	this.update = function() {
