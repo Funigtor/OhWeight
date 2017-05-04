@@ -76,6 +76,10 @@ Bouffe.LevelEditor = function(game) {
 		this.bg = this.add.tileSprite(0,0,4000,2000,levelData.background);
     this.bg.fixedToCamera = true;
 		this.player = this.add.sprite(32, this.game.world.height - 150, "dude"); // Spawnpoint
+		if (!levelData.platforms) levelData.platforms = new Array();
+		if (!levelData.food) levelData.food = new Array();
+		if (!levelData.junkfood) levelData.junkfood = new Array();
+		if (!levelData.bumpers) levelData.bumpers = new Array();
 		if (!platforms){
 			//  The platforms group contains the ground and the 2 ledges we can jump on
     	    platforms = this.add.group();
@@ -96,23 +100,26 @@ Bouffe.LevelEditor = function(game) {
 		this.add.button(110*0+10, 8, 'bPlateforme', this.createPlatform,this);
 	};
 	this.createPlatform = function(){
-		console.log("bite");
-		var previewPlatform = this.platforms.create(this.input.mousePointer.x, this.input.mousePointer.y, 'ground');
+		var previewPlatform = platforms.create(this.input.mousePointer.x, this.input.mousePointer.y, 'ground');
 		previewPlatform.inputEnabled = true;
-		previewPlatform.events.onInputDown.add(function() {
-			var xOfPlatform = this.input.mousePointer.worldX;
-			var yOfPlatform = this.input.mousePointer.worldY;
-			xOfPlatform = Math.round(xOfPlatform);
-			yOfPlatform = Math.round(yOfPlatform);
-			console.log("X set to " + xOfPlatform);
-			console.log("Y set to " + yOfPlatform);
-			if (!levelData.platforms) levelData.platforms = new Array();
-			levelData.platforms.push(["ground",xOfPlatform,yOfPlatform,0.3,0.5,true]);
-		},this);
+		previewPlatform.input.enableDrag();
+		previewPlatform.events.onDragStart.add(this.onDragStart,this);
+		previewPlatform.events.onDragStop.add(this.onDragStop,this);
+
+		levelData.platforms.push(["ground",previewPlatform.left,previewPlatform.top,0.3,0.5,true]);
+
+	};
+
+  this.onDragStart = function(sprite,pointer){
+		//trouver la plateforme et la supprimer du levelData
+	};
+
+	this.onDragStop = function(sprite,pointer){
+		levelData.platforms.push(["ground",sprite.left,sprite.top,0.3,0.5,true]);
 	};
 
 	this.update = function() {
-		
+
 	};
 
 	this.exportJSON = function() {
