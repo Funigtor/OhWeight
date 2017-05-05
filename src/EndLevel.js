@@ -27,14 +27,14 @@ Bouffe.EndLevel = function(game) {
 		this.persoButton = this.add.button(Bouffe._WIDTH*0.80, Bouffe._HEIGHT*0.1, 'button-restart', this.restart, this, 2, 0, 1);
 		this.persoButton.anchor.set(0.5,0);
 		this.persoButton.input.useHandCursor = true;
-		this.displaySentence();
+		//this.displaySentence();
 	};
 
-	this.displaySentence() = function(){
+	this.displaySentence = function(){
 		let styleText = {
 			fontSize : 42,
 		};
-		let phrase = phrases[this.userData.nbStars][Ø] // TODO refaire les phrases
+		// let phrase = phrases[this.userData.nbStars][Ø] // TODO fix me
 		this.text = this.game.text.add(60,370,phrase,styleText);
 	}
 
