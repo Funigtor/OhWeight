@@ -20,6 +20,10 @@ Bouffe.Preloader.prototype = {
             this.load.image('sprite', 'assets/sodo.png');
 			this.load.image('screen-mainmenu', 'assets/MainMenu.png');
 			this.load.image('select','assets/select.png')
+            this.load.image('Score0','assets/Score0.png')
+            this.load.image('Score1','assets/Score1.png')
+            this.load.image('Score2','assets/Score2.png')
+            this.load.image('Score3','assets/Score3.png')
 			this.load.spritesheet('button-start', 'assets/button-start.png', 146, 51);
             this.load.spritesheet('button-restart', 'assets/button-restart.png', 190, 51);
             this.load.spritesheet('button-mainMenu', 'assets/button-mainMenu.png', 240, 51);

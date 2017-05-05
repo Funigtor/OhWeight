@@ -13,6 +13,7 @@
 	<script src="src/Game.js"></script>
 	<script src="src/aliment.js"></script>
 	<script src="src/junkfood.js"></script>
+	<script src="src/EndLevel.js"></script>
 </head>
 <body>
 <script>
@@ -23,6 +24,7 @@
 	game.state.add('MainMenu', Bouffe.MainMenu);
 	game.state.add('Game', Bouffe.Game);
 	game.state.add('Select', Bouffe.Select)
+	game.state.add('EndLevel', Bouffe.EndLevel);
 	game.state.start('Boot');
 })();
 </script>

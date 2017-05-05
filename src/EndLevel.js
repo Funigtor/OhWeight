@@ -1,0 +1,49 @@
+Bouffe.EndLevel = function(game) {
+	var phrases = [["Oh la la tu n'es pas très bon"],
+	["Tu feras mieux la prochaine fois"],
+	["Tu y es presque ! Un dernier effort !"],
+	["Oh tu as bien mangé c'est génial."]]	
+	this.init = function(userData){
+        this.userData = userData;
+    }
+
+	this.create = function() {
+		switch (this.userData.nbStars){
+			case 1:
+				this.add.sprite(0, 0, 'Score1');
+				break;
+			case 2:
+				this.add.sprite(0, 0, 'Score2');
+				break;
+			case 3:
+				this.add.sprite(0, 0, 'Score3');
+				break;
+			default:
+				this.add.sprite(0, 0, 'Score0');
+		}
+		this.startButton = this.add.button(Bouffe._WIDTH*0.1, Bouffe._HEIGHT*0.1, 'button-mainMenu', this.returnMainMenu, this, 2, 0, 1);
+		this.startButton.anchor.set(0.5,0);
+		this.startButton.input.useHandCursor = true;
+		this.persoButton = this.add.button(Bouffe._WIDTH*0.80, Bouffe._HEIGHT*0.1, 'button-restart', this.restart, this, 2, 0, 1);
+		this.persoButton.anchor.set(0.5,0);
+		this.persoButton.input.useHandCursor = true;
+		this.displaySentence();
+	};
+
+	this.displaySentence() = function(){
+		let styleText = {
+			fontSize : 42,
+		};
+		let phrase = phrases[this.userData.nbStars][Ø] // TODO refaire les phrases
+		this.text = this.game.text.add(60,370,phrase,styleText);
+	}
+
+	this.returnMainMenu = function() {
+		this.game.state.start('MainMenu',true,false,userData);
+	};
+
+	this.restart = function(){
+		this.game.state.start('Game',true,false,userData);
+	}
+
+};
