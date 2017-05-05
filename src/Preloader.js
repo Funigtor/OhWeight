@@ -18,6 +18,7 @@ Bouffe.Preloader.prototype = {
             this.load.image('cornetto', 'assets/glace.png');
             this.load.image('mensonge', 'assets/GATAL.png');
             this.load.image('sprite', 'assets/sodo.png');
+						this.load.image('Bed', 'assets/bed.png');
 			this.load.image('screen-mainmenu', 'assets/MainMenu.png');
 			this.load.image('select','assets/select.png')
             this.load.image('Score0','assets/Score0.png')
