@@ -2,18 +2,20 @@ Bouffe.Game = function(game) {};
 Bouffe.Game.prototype = {
   init: function(userData){
     this.userData = userData;
+    this.worldHeight = 600;
+    this.worldLength = 4000;
   },
 	create: function(){
             // Loading an object describing the level
-            (this.userData.level == "custom") ? this.levelData = this.userData.userLevel : this.levelData = this.cache.getJSON(this.userData.level);           
+            (this.userData.level == "custom") ? this.levelData = this.userData.userLevel : this.levelData = this.cache.getJSON(this.userData.level);
             //  We're going to be using physics, so enable the Arcade Physics system
             this.physics.startSystem(Phaser.Physics.ARCADE);
-						this.world.setBounds(0,0, 4000, 600);
+						this.world.setBounds(0,0, this.worldLength, this.worldHeight);
 						this.movementForce = 5;
             this.speed =300;
             this.dead = 0;
             //  A simple background for our game
-            this.bg = this.add.tileSprite(0,0,4000,2000,this.levelData.background);
+            this.bg = this.add.tileSprite(0,0,this.worldLength,2000,this.levelData.background);
             this.bg.fixedToCamera = true;
             //  The platforms group contains the ground and the 2 ledges we can jump on
             this.platforms = this.add.group();
@@ -81,16 +83,20 @@ Bouffe.Game.prototype = {
         //the bumpers
 		    this.bumpers = this.add.group();
 		    this.bumpers.enableBody = true;
-			var Bumpers = new Array();
-            for(let bump of this.levelData.bumpers) {
-              for (let itm of bump.positions){
-                var item = this.bumpers.create(itm.x,itm.y,'bumper');
-                item.scale.setTo(2, 1.5);
-				        item.body.immovable = true;
-                Bumpers.push(item);
-              }
+        var Bumpers = new Array();
+              for(let bump of this.levelData.bumpers) {
+                for (let itm of bump.positions){
+                  var item = this.bumpers.create(itm.x,itm.y,'bumper');
+                  item.scale.setTo(2, 1.5);
+  				        item.body.immovable = true;
+                  Bumpers.push(item);
+                }
             }
-
+            // The victory condition
+            this.winFlag = this.add.group();
+            this.winFlag.enableBody = true;
+            this.winFlag.create(2*this.worldLength - 100 , 2*this.worldHeight - 100,'Bed');
+            this.winFlag.scale.setTo(0.5, 0.5);
 
             //  The score
             this.score = new Object();
@@ -108,17 +114,18 @@ Bouffe.Game.prototype = {
 
             //  Our controls.
             this.cursors = this.input.keyboard.createCursorKeys();
-            
+
 	},
 	update: function() {
             //  Collide the player and the steaks with the platforms
             this.physics.arcade.collide(this.player, this.platforms);
             this.physics.arcade.collide(this.aliments, this.platforms);
+            this.physics.arcade.collide(this.winFlag, this.platforms);
             this.physics.arcade.collide(this.player, this.bumpers,this.bumpUp, this.checkBump, this);
             //  Checks to see if the player overlaps with any of the steaks, if he does call the collectSteak function
             this.physics.arcade.overlap(this.player, this.aliments, this.collectAliment, null, this);
             this.physics.arcade.overlap(this.player, this.junkfood, this.death, null, this);
-
+            this.physics.arcade.overlap(this.player, this.winFlag ,this.victory , null , this);
 
             if (this.cursors.left.isDown  && this.dead == 0){
                 if (this.player.body.touching.down){
@@ -210,6 +217,9 @@ Bouffe.Game.prototype = {
            this.game.sound.play("death");
            //this.youdied.scale.setTo(1.2, 1.4);
          }
+       },
+       victory: function(){
+         this.game.state.start('Game',true,false,this.userData);
        },
        retry : function(){
         this.game.state.start('Game',true,false,this.userData);
