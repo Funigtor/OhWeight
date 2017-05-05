@@ -39,11 +39,11 @@ Bouffe.EndLevel = function(game) {
 	}
 
 	this.returnMainMenu = function() {
-		this.game.state.start('MainMenu',true,false,userData);
+		this.game.state.start('MainMenu',true,false,this.userData);
 	};
 
 	this.restart = function(){
-		this.game.state.start('Game',true,false,userData);
+		this.game.state.start('Game',true,false,this.userData);
 	}
 
 };
