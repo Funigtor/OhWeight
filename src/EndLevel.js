@@ -2,7 +2,7 @@ Bouffe.EndLevel = function(game) {
 	var phrases = [["Oh la la tu n'es pas très bon"],
 	["Tu feras mieux la prochaine fois"],
 	["Tu y es presque ! Un dernier effort !"],
-	["Oh tu as bien mangé c'est génial."]]	
+	["Oh tu as bien mangé c'est génial."]]
 	this.init = function(userData){
         this.userData = userData;
     }
@@ -21,7 +21,7 @@ Bouffe.EndLevel = function(game) {
 			default:
 				this.add.sprite(0, 0, 'Score0');
 		}
-		this.startButton = this.add.button(Bouffe._WIDTH*0.1, Bouffe._HEIGHT*0.1, 'button-mainMenu', this.returnMainMenu, this, 2, 0, 1);
+		this.startButton = this.add.button(Bouffe._WIDTH*0.2, Bouffe._HEIGHT*0.1, 'button-mainMenu', this.returnMainMenu, this, 2, 0, 1);
 		this.startButton.anchor.set(0.5,0);
 		this.startButton.input.useHandCursor = true;
 		this.persoButton = this.add.button(Bouffe._WIDTH*0.80, Bouffe._HEIGHT*0.1, 'button-restart', this.restart, this, 2, 0, 1);
