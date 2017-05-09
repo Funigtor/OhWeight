@@ -49,14 +49,16 @@ Bouffe.Game.prototype = {
               for (let typeOf of aliment.kindOfFood) {
                 let createName  = typeOf.name;
                 for (let itm of typeOf.positions){
-                  var itemTmp = alimentGenerator(createName,itm.x,itm.y);
-                  var item = this.aliments.create(itemTmp.pos.x,itemTmp.pos.y,itemTmp.img);
-                  if (itemTmp.hasOwnProperty("scale")) item.scale.setTo(itemTmp.scale[0],itemTmp.scale[1]);
-                  item.body.gravity.y = 0;
-                  item.sortOfItem = aliment.name;
-                  item.sizeOfItem = itemTmp.weight;
-                  item.maxOf = aliment.max;
-                  alimStock.push(item);
+                  if(itm.x){
+                    var itemTmp = alimentGenerator(createName,itm.x,itm.y);
+                    var item = this.aliments.create(itemTmp.pos.x,itemTmp.pos.y,itemTmp.img);
+                    if (itemTmp.hasOwnProperty("scale")) item.scale.setTo(itemTmp.scale[0],itemTmp.scale[1]);
+                    item.body.gravity.y = 0;
+                    item.sortOfItem = aliment.name;
+                    item.sizeOfItem = itemTmp.weight;
+                    item.maxOf = aliment.max;
+                    alimStock.push(item);
+                  }
                 }
               }
             }
@@ -68,11 +70,13 @@ Bouffe.Game.prototype = {
             for(let junk of this.levelData.junkfood) {
               let createName  = junk.name;
               for (let itm of junk.positions){
-                var itemTmp = junkfoodGenerator(createName,itm.x,itm.y);
-                var item = this.junkfood.create(itemTmp.pos.x,itemTmp.pos.y,itemTmp.img);
-                if (itemTmp.hasOwnProperty("scale")) item.scale.setTo(itemTmp.scale[0],itemTmp.scale[1]);
-                item.body.gravity.y = 0;
-                Junky.push(item);
+                if(itm.x){
+                  var itemTmp = junkfoodGenerator(createName,itm.x,itm.y);
+                  var item = this.junkfood.create(itemTmp.pos.x,itemTmp.pos.y,itemTmp.img);
+                  if (itemTmp.hasOwnProperty("scale")) item.scale.setTo(itemTmp.scale[0],itemTmp.scale[1]);
+                  item.body.gravity.y = 0;
+                  Junky.push(item);
+                }
               }
             }
 
@@ -82,10 +86,12 @@ Bouffe.Game.prototype = {
 			var Bumpers = new Array();
             for(let bump of this.levelData.bumpers) {
               for (let itm of bump.positions){
-                var item = this.bumpers.create(itm.x,itm.y,'bumper');
-                item.scale.setTo(2, 1.5);
-				        item.body.immovable = true;
-                Bumpers.push(item);
+                if(itm.x){
+                  var item = this.bumpers.create(itm.x,itm.y,'bumper');
+                  item.scale.setTo(2, 1.5);
+  				        item.body.immovable = true;
+                  Bumpers.push(item);
+                }
               }
             }
 
@@ -185,7 +191,9 @@ Bouffe.Game.prototype = {
        },
        generateTerrain: function(){
          for(let i in this.platform){
-           this.createPlatform(this.platform[i]);
+           if(this.platform[i][0]){
+             this.createPlatform(this.platform[i]);
+           }
          }
        },
 			 bumpUp: function(){

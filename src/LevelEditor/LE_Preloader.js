@@ -5,7 +5,10 @@ Bouffe.LE_Preloader.prototype = {
     },
 	preload: function() {
             this.load.image('sky', 'assets/sky.png');
-            this.load.image('ground', 'assets/platform.png');
+            this.load.image('platform1', 'assets/platform1.png');
+            this.load.image('platform2', 'assets/platform2.png');
+            this.load.image('platform3', 'assets/platform3.png');
+            this.load.image('platform4', 'assets/platform4.png');
             this.load.image('bumper', 'assets/Bumper.png');
             this.load.image('steak', 'assets/Steak.png');
             this.load.image('banane', 'assets/banana.png');
@@ -24,6 +27,13 @@ Bouffe.LE_Preloader.prototype = {
 			this.load.image('select','assets/select.png');
             this.load.image('bPlateforme','assets/levelEditor/bPlateforme.png');
             this.load.image('bExporter','assets/levelEditor/bExporter.png');
+            this.load.image('bBouffe','assets/levelEditor/bBouffe.png');
+            this.load.image('bJunkfood','assets/levelEditor/bJunkfood.png');
+            this.load.image('bBumpers','assets/levelEditor/bBumpers.png');
+            this.load.image('bDelete','assets/levelEditor/bDelete.png');
+            this.load.image('menuPlatform','assets/levelEditor/menuPlatform.png');
+            this.load.image('menuBouffe','assets/levelEditor/menuBouffe.png');
+            this.load.image('menuJunkfood','assets/levelEditor/menuJunkfood.png');
 			this.load.spritesheet('button-start', 'assets/button-start.png', 146, 51);
 			this.load.spritesheet('button-dude', 'assets/boutondude.png', 100, 100);
 			this.load.spritesheet('button-dudette', 'assets/boutondudette.png', 100, 100);
