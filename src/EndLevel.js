@@ -1,8 +1,5 @@
 Bouffe.EndLevel = function(game) {
-	var phrases = [["Oh la la tu n'es pas très bon"],
-	["Tu feras mieux la prochaine fois"],
-	["Tu y es presque ! Un dernier effort !"],
-	["Oh tu as bien mangé c'est génial."]]
+	var phrases = ["Ne mange pas trop de viande","Les légumes sont bons pour la santé","La junkfood est mauvaise pour la santé","Essaye de limiter le gras et le sel"]
 	this.init = function(userData){
         this.userData = userData;
     }
@@ -27,15 +24,17 @@ Bouffe.EndLevel = function(game) {
 		this.persoButton = this.add.button(Bouffe._WIDTH*0.80, Bouffe._HEIGHT*0.1, 'button-restart', this.restart, this, 2, 0, 1);
 		this.persoButton.anchor.set(0.5,0);
 		this.persoButton.input.useHandCursor = true;
-		//this.displaySentence();
+		this.displaySentence();
 	};
 
 	this.displaySentence = function(){
 		let styleText = {
 			fontSize : 42,
 		};
-		// let phrase = phrases[this.userData.nbStars][Ø] // TODO fix me
-		this.text = this.game.text.add(60,370,phrase,styleText);
+		let numberRandom = Math.random()*100;
+		let numberSentence = Math.round(numberRandom) % phrases.length;
+		let phrase = phrases[numberSentence];
+		this.game.add.text(60,370,phrase,styleText);
 	}
 
 	this.returnMainMenu = function() {
