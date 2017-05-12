@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Éditeur de niveau</title>
+	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+	<link rel="stylesheet" href="src/LevelEditor/style.css">
+    <script src="src/LevelEditor/jquery-3.2.1.min.js"></script>
+	<script src="src/phaser.min.js"></script>
+    <script src="src/aliment.js"></script>
+    <script src="src/junkfood.js"></script>
+	<script src="src/LevelEditor/LE_Boot.js"></script>
+	<script src="src/LevelEditor/LE_Preloader.js"></script>
+	<script src="src/LevelEditor/LevelEditor.js"></script>
+</head>
+<body>
+    <div id="intro">
+        <h1>Éditeur de niveau</h1>
+        Bonjour, et bienvenue dans l'éditeur de niveau.
+        Avant de commencer, nous avons quelques questions à te poser.
+        <h3>Si tu veux importer un JSON insère-le ici </h3>
+        <form>
+            <input id="importJSON"></input>
+            <button id="bImport">Continuer à créer !</button>
+        </form>
+        <h2>Sinon, choisis un background.</h2>
+        <form id="choice">
+            <select name="bg" id="bg">
+               <option value="">Faire un choix</option>
+
+            </select>
+            <img src = "" alt="" id = "imgBG">
+            <button id="bValider">Commencer à créer !</button>
+        </form>
+    </div>
+<script>
+(function() {
+
+    var mapBG = new Map;
+    var listBG = ["sky","4k"];
+    // Ajout des backgrounds
+    mapBG.set("sky","assets/sky.png");
+    mapBG.set("4k","assets/4k.jpg");
+    // Remplissage du select
+    var selectBG = $('#bg');
+    for (img of listBG){
+        var item = $(document.createElement("option"))
+        item.attr("value",img).text(img);
+        $("#bg").append(item);
+    }
+    $("select").on("change",function(event) {
+        var selectedBG = mapBG.get($("#bg option").filter(":selected").text())
+        $("#imgBG").fadeOut().attr("src",selectedBG).fadeIn();
+    })
+
+
+    // Action des boutons
+    $("#bValider").on("click", function(event){
+        event.preventDefault();
+        var dataCreation = new Object;
+        dataCreation.background = $("#bg option").filter(":selected").text();
+        if (dataCreation.background == "Faire un choix"){
+            alert ('Choisis un background')
+        } else {
+            createGame(dataCreation);
+        }
+    })
+    $("#bImport").on("click", function(event){
+        event.preventDefault();
+        var dataCreation = new Object;
+        try {
+            dataCreation = JSON.parse($("#importJSON").val());
+            dataCreation.imported = true;
+            createGame(dataCreation);
+        } 
+        catch (SyntaxError){
+            alert ('Rentre un JSON')
+        }
+    })
+
+
+    var createGame = function(levelData){
+        // Création du jeu
+        $("#intro").fadeOut();
+	    var game = new Phaser.Game(800, 600, Phaser.AUTO, '');
+        // LE_baguette
+	    game.state.add('LE_Boot', Bouffe.LE_Boot);
+	    game.state.add('LE_Preloader', Bouffe.LE_Preloader);
+	    game.state.add('LevelEditor', Bouffe.LevelEditor);
+	    game.state.start('LE_Boot',false,false,levelData);
+    }
+})();
+</script>
+<div id="exported"> <!-- Generated JSON will be here --> </div>
+</body>
+</html>
