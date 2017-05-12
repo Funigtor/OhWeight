@@ -8,9 +8,11 @@ Bouffe.LevelEditor = function(game) {
 	var aliments;
 	var junkfood;
 	var bumpers;
+	var cursors;
 
     this.init =  function(arg) {
         levelData = arg;
+				cursors = game.input.keyboard.createCursorKeys();
 		if (levelData.imported){
 			delete levelData.imported;
             //  The platforms group contains the ground and the 2 ledges we can jump on
@@ -78,6 +80,7 @@ Bouffe.LevelEditor = function(game) {
     },
 
 	this.create = function() {
+		this.world.setBounds(0,0, 4000, 600);
 		this.bg = this.add.tileSprite(0,0,4000,2000,levelData.background);
     this.bg.fixedToCamera = true;
 		this.player = this.add.sprite(32, this.game.world.height - 150, "dude"); // Spawnpoint
@@ -121,12 +124,18 @@ Bouffe.LevelEditor = function(game) {
 	};
 
 	this.drawMenu = function(){
-		this.add.button(Bouffe._WIDTH-120, Bouffe._HEIGHT - 40, 'bExporter', this.exportJSON);
-		this.add.button(110*0+10, 8, 'bPlateforme', this.drawmenuPlatform,this);
-		this.add.button(Bouffe._WIDTH-230, 8, 'bBouffe', this.drawmenuBouffe,this);
-		this.add.button(110*1+10, 8, 'bJunkfood', this.drawmenuJunkfood,this);
-		this.add.button(Bouffe._WIDTH-120, Bouffe._HEIGHT - 80, 'bBumpers', this.createBumper,this);
-		this.add.sprite(Bouffe._WIDTH-100, 0, 'bDelete');
+		var exportB = this.add.button(Bouffe._WIDTH-120, Bouffe._HEIGHT - 40, 'bExporter', this.exportJSON);
+		exportB.fixedToCamera = true;
+		var plateformB = this.add.button(110*0+10, 8, 'bPlateforme', this.drawmenuPlatform,this);
+		plateformB.fixedToCamera = true;
+		var bouffeB = this.add.button(Bouffe._WIDTH-230, 8, 'bBouffe', this.drawmenuBouffe,this);
+		bouffeB.fixedToCamera = true;
+		var junkB = this.add.button(110*1+10, 8, 'bJunkfood', this.drawmenuJunkfood,this);
+		junkB.fixedToCamera = true;
+		var bumpersB = this.add.button(Bouffe._WIDTH-120, Bouffe._HEIGHT - 80, 'bBumpers', this.createBumper,this);
+		bumpersB.fixedToCamera = true;
+		var deleteB = this.add.sprite(Bouffe._WIDTH-100, 0, 'bDelete');
+		deleteB.fixedToCamera = true;
 	};
 
 	this.drawmenuPlatform = function() {
@@ -175,8 +184,8 @@ Bouffe.LevelEditor = function(game) {
 		this.unpause = function() {
 			if(menu){
 				if(menu.paused){
-	            var x1 = this.game.world.width/2 - menu.width/2, x2 = this.game.world.width/2 + menu.width/2,
-	                y1 = this.game.world.height/2 - menu.height/2, y2 = this.game.world.height/2 + menu.height/2;
+	            var x1 = 400 - menu.width/2, x2 = 400 + menu.width/2,
+	                y1 = 300 - menu.height/2, y2 = 300 + menu.height/2;
 	            if(this.input.mousePointer.x > x1 && this.input.mousePointer.x < x2 && this.input.mousePointer.y > y1 && this.input.mousePointer.y < y2 ){
 
 
@@ -223,6 +232,13 @@ Bouffe.LevelEditor = function(game) {
 				if(game.input.activePointer.isDown){
 					this.unpause();
 				}
+				if (cursors.right.isDown){
+		        game.camera.x += 8;
+		    }
+
+		    if (cursors.left.isDown){
+		        game.camera.x -= 8;
+		    }
 			};
 
 
@@ -240,13 +256,17 @@ Bouffe.LevelEditor = function(game) {
 
 			this.createBouffe = function(image){
 				var previewBouffe = aliments.create(this.game.camera.x + 400, this.game.camera.y + 10, image);
-		    previewBouffe.idPlat = levelData.platforms.length;
 				previewBouffe.image = image;
 				previewBouffe.inputEnabled = true;
 				previewBouffe.input.enableDrag();
 				previewBouffe.events.onDragStop.add(this.onDragStopBouffe,this);
-
-				levelData.platforms.push([image,previewBouffe.left,previewBouffe.top,0.3,0.5,true]);
+				for(let alim in levelData.food){
+					if(levelData.food[alim].kindOfFood[0].name == image){
+						previewBouffe.alim = alim;
+						previewBouffe.idPlat = levelData.food[alim].kindOfFood[0].positions.length;
+						levelData.food[alim].kindOfFood[0].positions.push({"x" :previewBouffe.left,"y":previewBouffe.top});
+					}
+				}
 
 			};
 
@@ -257,8 +277,13 @@ Bouffe.LevelEditor = function(game) {
 				previewJunkfood.inputEnabled = true;
 				previewJunkfood.input.enableDrag();
 				previewJunkfood.events.onDragStop.add(this.onDragStopJunkfood,this);
-
-				levelData.platforms.push([image,previewJunkfood.left,previewJunkfood.top,0.3,0.5,true]);
+				for(let jkf in levelData.junkfood){
+					if(levelData.junkfood[jkf].name == image){
+						previewJunkfood.jkf = jkf;
+						previewJunkfood.idPlat = levelData.junkfood[jkf].positions.length;
+						levelData.junkfood[jkf].positions.push({"x" :previewJunkfood.left,"y":previewJunkfood.top})
+					}
+				}
 
 			};
 
@@ -268,7 +293,6 @@ Bouffe.LevelEditor = function(game) {
 				previewBumper.inputEnabled = true;
 				previewBumper.input.enableDrag();
 				previewBumper.events.onDragStop.add(this.onDragStopBumper,this);
-				console.log(levelData.bumpers[0].positions);
 				levelData.bumpers[0].positions.push({"x" :previewBumper.left,"y":previewBumper.top});
 
 			};
@@ -282,10 +306,18 @@ Bouffe.LevelEditor = function(game) {
 		else{levelData.platforms[sprite.idPlat] = ([sprite.image,sprite.left,sprite.top,0.3,0.5,true]);}
 	};
 	this.onDragStopBouffe = function(sprite,pointer){
-		levelData.platforms[sprite.idPlat] = ([sprite.image,sprite.left,sprite.top,0.3,0.5,true]);
+		if(sprite.left > this.game.camera.x + 700 && sprite.top < this.game.camera.y + 35){
+			sprite.destroy();
+			levelData.food[sprite.alim].kindOfFood[0].positions[sprite.idPlat] = {};
+		}
+		else{levelData.food[sprite.alim].kindOfFood[0].positions[sprite.idPlat] = {"x" :sprite.left,"y":sprite.top};}
 	};
 	this.onDragStopJunkfood = function(sprite,pointer){
-		levelData.platforms[sprite.idPlat] = ([sprite.image,sprite.left,sprite.top,0.3,0.5,true]);
+		if(sprite.left > this.game.camera.x + 700 && sprite.top < this.game.camera.y + 35){
+			sprite.destroy();
+			levelData.junkfood[sprite.jkf].positions[sprite.idPlat] = {};
+		}
+		else{levelData.junkfood[sprite.jkf].positions[sprite.idPlat] = {"x" :sprite.left,"y":sprite.top};}
 	};
 	this.onDragStopBumper = function(sprite,pointer){
 		if(sprite.left > this.game.camera.x + 700 && sprite.top < this.game.camera.y + 35){
