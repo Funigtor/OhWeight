@@ -33,7 +33,7 @@ Bouffe.Preloader.prototype = {
             this.load.spritesheet('dude', 'assets/dude.png', 32, 36);
 			this.load.spritesheet('dudette', 'assets/dudette.png', 32, 36);
 			this.load.json('level-one', 'levels/lvl1.json');
-            this.load.audio('Ah','audio/AH.ogg');
+            this.load.audio('Bump','audio/Bump.ogg');
             this.load.audio('miam','audio/miam.ogg');
             this.load.audio('death','audio/yourefat.ogg');
             this.load.audio('nomnomnom','audio/nomnomnom.ogg');

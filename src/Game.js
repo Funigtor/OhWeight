@@ -249,7 +249,7 @@ Bouffe.Game.prototype = {
        },
 			 bumpUp: function(){
 				 this.player.body.velocity.y = -1000;
-         this.game.sound.play('Ah');
+         this.game.sound.play('Bump');
 			 },
 			 checkBump: function(player,bumper){
 				 if(player.body.touching.down == true && (player.body.touching.left == false && player.body.touching.right == false && player.body.touching.up == false)){
