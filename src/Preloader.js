@@ -36,6 +36,7 @@ Bouffe.Preloader.prototype = {
             this.load.audio('Ah','audio/AH.ogg');
             this.load.audio('miam','audio/miam.ogg');
             this.load.audio('death','audio/yourefat.ogg');
+            this.load.audio('nomnomnom','audio/nomnomnom.ogg');
 	},
 	create: function() {
 		this.game.state.start('MainMenu');

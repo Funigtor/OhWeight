@@ -225,6 +225,8 @@ Bouffe.Game.prototype = {
            this.camera.follow(null);
            this.game.sound.play("death");
            //this.youdied.scale.setTo(1.2, 1.4);
+         } else {
+           this.game.sound.play("nomnomnom");
          }
        },
        victory: function(){
