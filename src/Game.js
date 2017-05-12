@@ -186,7 +186,6 @@ Bouffe.Game.prototype = {
           aliment.kill();
           this.score.value.set(aliment.sortOfItem,this.score.value.get(aliment.sortOfItem) + aliment.sizeOfItem)
           this.userData.score += aliment.sizeOfItem;
-          console.log(this.userData.score);
           // text generation
           let text = aliment.sortOfItem+': ' +this.score.value.get(aliment.sortOfItem) +'/'+aliment.maxOf+'g';
           this.score.text.get(aliment.sortOfItem).setText(text);
