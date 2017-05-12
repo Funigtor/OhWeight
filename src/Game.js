@@ -8,7 +8,8 @@ Bouffe.Game.prototype = {
 	create: function(){
             // Loading an object describing the level
             (this.userData.level == "custom") ? this.levelData = this.userData.userLevel : this.levelData = this.cache.getJSON(this.userData.level);
-            this.userData.nbStars = 1 ;
+            this.userData.nbStars;
+            this.userData.score = 0 ;
             //  We're going to be using physics, so enable the Arcade Physics system
             this.physics.startSystem(Phaser.Physics.ARCADE);
 						this.world.setBounds(0,0, this.worldLength, this.worldHeight);
@@ -184,10 +185,16 @@ Bouffe.Game.prototype = {
       collectAliment: function(player, aliment){
           aliment.kill();
           this.score.value.set(aliment.sortOfItem,this.score.value.get(aliment.sortOfItem) + aliment.sizeOfItem)
+          this.userData.score += aliment.sizeOfItem;
+          console.log(this.userData.score);
           // text generation
           let text = aliment.sortOfItem+': ' +this.score.value.get(aliment.sortOfItem) +'/'+aliment.maxOf+'g';
           this.score.text.get(aliment.sortOfItem).setText(text);
-          if (this.score.value.get(aliment.sortOfItem) > aliment.maxOf){this.score.text.get(aliment.sortOfItem).fill = '#ff0000';}
+          if (this.score.value.get(aliment.sortOfItem) > aliment.maxOf){
+            this.score.text.get(aliment.sortOfItem).fill = '#ff0000';
+            this.userData.score -= 2*aliment.sizeOfItem;
+
+          }
           this.game.sound.play('miam');
       },
        createPlatform: function(platform){
@@ -203,6 +210,7 @@ Bouffe.Game.prototype = {
        death: function(player , junkfood){
         junkfood.kill();
          this.speed  *=9/10 ;
+         this.userData.score-=300;
          if(this.speed <= 200){
            this.dead = 1;
            this.speed = 1;
@@ -220,6 +228,15 @@ Bouffe.Game.prototype = {
          }
        },
        victory: function(){
+         if(this.userData.score < 1255/3){
+           this.userData.nbStars = 0;
+         }else if (this.userData.score >= 1255/3 && this.userData.score < 1255*2/3) {
+           this.userData.nbStars = 1;
+         }else if (this.userData.score >=1255*2/3 && this.userData.score != 1255) {
+          this.userData.nbStars = 2;
+        }else if (this.userData.score == 1255) {
+          this.userData.nbStars = 3;
+        }
          this.game.state.start('EndLevel',true,false,this.userData);
        },
        retry : function(){
