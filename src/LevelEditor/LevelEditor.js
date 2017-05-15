@@ -232,11 +232,11 @@ Bouffe.LevelEditor = function(game) {
 				if(game.input.activePointer.isDown){
 					this.unpause();
 				}
-				if (cursors.right.isDown || (game.input.pointer1.isDown && game.input.pointer2.isDown && (game.input.activePointer.y > Bouffe._WIDTH * 0.5)) ){
+				if (cursors.right.isDown || (game.input.pointer1.isDown && game.input.pointer2.isDown && (game.input.activePointer.x > Bouffe._WIDTH * 0.5)) ){
 		        game.camera.x += 8;
 		    }
 
-		    if (cursors.left.isDown || (game.input.pointer1.isDown && game.input.pointer2.isDown && (game.input.activePointer.y <= Bouffe._WIDTH * 0.5)) ){
+		    if (cursors.left.isDown || (game.input.pointer1.isDown && game.input.pointer2.isDown && (game.input.activePointer.x <= Bouffe._WIDTH * 0.5)) ){
 		        game.camera.x -= 8;
 		    }
 			};
