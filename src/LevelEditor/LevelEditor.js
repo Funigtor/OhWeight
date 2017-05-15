@@ -186,12 +186,12 @@ Bouffe.LevelEditor = function(game) {
 				if(menu.paused){
 	            var x1 = 400 - menu.width/2, x2 = 400 + menu.width/2,
 	                y1 = 300 - menu.height/2, y2 = 300 + menu.height/2;
-	            if(this.input.mousePointer.x > x1 && this.input.mousePointer.x < x2 && this.input.mousePointer.y > y1 && this.input.mousePointer.y < y2 ){
+	            if(this.input.activePointer.x > x1 && this.input.activePointer.x < x2 && this.input.activePointer.y > y1 && this.input.activePointer.y < y2 ){
 
 
 									menu.paused = false;
-	                var x = this.input.mousePointer.x - x1,
-	                    y = this.input.mousePointer.y - y1;
+	                var x = this.input.activePointer.x - x1,
+	                    y = this.input.activePointer.y - y1;
 
 	                var choise = Math.floor(x / (menu.length/menu.choises)) + menu.choises*Math.floor(y / (menu.height/menu.choises) );
 
@@ -303,7 +303,7 @@ Bouffe.LevelEditor = function(game) {
 			sprite.destroy();
 			levelData.platforms[sprite.idPlat] = [];
 		}
-		else{levelData.platforms[sprite.idPlat] = ([sprite.image,sprite.left,sprite.top,0.3,0.5,true]);}
+		else{levelData.platforms[sprite.idPlat] = ([sprite.image,sprite.left,sprite.top,1,1,true]);}
 	};
 	this.onDragStopBouffe = function(sprite,pointer){
 		if(sprite.left > this.game.camera.x + 700 && sprite.top < this.game.camera.y + 35){
