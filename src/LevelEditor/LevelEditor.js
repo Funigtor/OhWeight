@@ -250,7 +250,7 @@ Bouffe.LevelEditor = function(game) {
 				previewPlatform.input.enableDrag();
 				previewPlatform.events.onDragStop.add(this.onDragStopPlatform,this);
 
-				levelData.platforms.push([image,previewPlatform.left,previewPlatform.top,0.3,0.5,true]);
+				levelData.platforms.push([image,previewPlatform.left,previewPlatform.top,1,1,true]);
 
 			};
 
