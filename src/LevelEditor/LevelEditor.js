@@ -80,8 +80,8 @@ Bouffe.LevelEditor = function(game) {
     },
 
 	this.create = function() {
-		this.world.setBounds(0,0, 4000, 600);
-		this.bg = this.add.tileSprite(0,0,4000,2000,levelData.background);
+		this.world.setBounds(0,0, 8000, 600);
+		this.bg = this.add.tileSprite(0,0,8000,2000,levelData.background);
     this.bg.fixedToCamera = true;
 		this.player = this.add.sprite(32, this.game.world.height - 150, "dude"); // Spawnpoint
 		if (!levelData.platforms) levelData.platforms = new Array();

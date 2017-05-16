@@ -3,7 +3,7 @@ Bouffe.Game.prototype = {
   init: function(userData){
     this.userData = userData;
     this.worldHeight = 600;
-    this.worldLength = 4000;
+    this.worldLength = 8000;
   },
 	create: function(){
             // Loading an object describing the level
@@ -26,7 +26,7 @@ Bouffe.Game.prototype = {
             // Here we create the ground.
             this.ground = this.platforms.create(0, this.game.world.height - 16, 'ground');
             //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-            this.ground.scale.setTo(10, 0.5);
+            this.ground.scale.setTo(20, 0.5);
             //  This stops it from falling away when you jump on it
             this.ground.body.immovable = true;
 
