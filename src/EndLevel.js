@@ -29,7 +29,7 @@ Bouffe.EndLevel = function(game) {
 
 	this.displaySentence = function(){
 		let styleText = {
-			fontSize : 42,
+			fontSize : 32,
 		};
 		let numberRandom = Math.random()*100;
 		let numberSentence = Math.round(numberRandom) % phrases.length;
