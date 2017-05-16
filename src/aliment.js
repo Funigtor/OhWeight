@@ -61,7 +61,7 @@ var steak = function(posX,posY){
     this.pos = new Object();
     this.pos.x = posX;
     this.pos.y = posY;
-    this.weight = 10;
+    this.weight = 35;
     this.scale = [1.5,1.5];
     this.img = 'steak';
 }
@@ -72,7 +72,7 @@ var poulet = function(posX,posY){
     this.pos = new Object();
     this.pos.x = posX;
     this.pos.y = posY;
-    this.weight = 10;
+    this.weight = 20;
     this.scale = [1.5,1.5];
     this.img = 'poulet';
 }
@@ -94,7 +94,7 @@ var banane = function(posX,posY){
     this.pos = new Object();
     this.pos.x = posX;
     this.pos.y = posY;
-    this.weight = 10;
+    this.weight = 37;
     this.scale = [1.5,1.5];
     this.img = 'banane';
 }
@@ -105,7 +105,7 @@ var patate = function(posX,posY){
     this.pos = new Object();
     this.pos.x = posX;
     this.pos.y = posY;
-    this.weight = 10;
+    this.weight = 20;
     this.scale = [1.5,1.5];
     this.img = 'patate';
 }
@@ -116,7 +116,7 @@ var carotte = function(posX,posY){
     this.pos = new Object();
     this.pos.x = posX;
     this.pos.y = posY;
-    this.weight = 10;
+    this.weight = 40;
     this.scale = [1.5,1.5];
     this.img = 'carotte';
 }
@@ -127,7 +127,7 @@ var magikarp = function(posX,posY){
     this.pos = new Object();
     this.pos.x = posX;
     this.pos.y = posY;
-    this.weight = 10;
+    this.weight = 35;
     this.scale = [1.5,1.5];
     this.img = 'magikarp';
 }
@@ -149,7 +149,7 @@ var nicolas = function(posX,posY){
     this.pos = new Object();
     this.pos.x = posX;
     this.pos.y = posY;
-    this.weight = 10;
+    this.weight = 5;
     this.scale = [1.5,1.5];
     this.img = 'nicolas';
 }
