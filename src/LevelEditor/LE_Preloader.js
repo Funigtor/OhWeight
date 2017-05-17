@@ -5,6 +5,7 @@ Bouffe.LE_Preloader.prototype = {
     },
 	preload: function() {
             this.load.image('sky', 'assets/sky.png');
+            this.load.image('background1', 'assets/Background1.png');
             this.load.image('platform1', 'assets/platform1.png');
             this.load.image('platform2', 'assets/platform2.png');
             this.load.image('platform3', 'assets/platform3.png');
