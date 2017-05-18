@@ -18,7 +18,7 @@ Bouffe.Game.prototype = {
             this.dead = 0;
             //  A simple background for our game
             this.bg = this.add.tileSprite(0,0,this.worldLength,2000,this.levelData.background);
-            this.bg.fixedToCamera = true;
+            //this.bg.fixedToCamera = true;
             //  The platforms group contains the ground and the 2 ledges we can jump on
             this.platforms = this.add.group();
             //  We will enable physics for any object that is created in this group

@@ -4,6 +4,11 @@ Bouffe.Preloader.prototype = {
 						this.load.image('youdied', 'assets/youdied.png');
             this.load.image('sky', 'assets/sky.png');
             this.load.image('background1', 'assets/Background1.png');
+						this.load.image('background2', 'assets/Background2.png');
+						this.load.image('background3', 'assets/Background3.png');
+						this.load.image('background4', 'assets/background4.png');
+						this.load.image('background5', 'assets/Background5.png');
+						this.load.image('background6', 'assets/Background6.png');
             this.load.image('ground', 'assets/platform.png');
             this.load.image('platform1', 'assets/platform1.png')
             this.load.image('platform2', 'assets/platform2.png')
@@ -24,8 +29,8 @@ Bouffe.Preloader.prototype = {
             this.load.image('mensonge', 'assets/GATAL.png');
             this.load.image('sprite', 'assets/sodo.png');
 						this.load.image('Bed', 'assets/bed.png');
-			this.load.image('screen-mainmenu', 'assets/MainMenu.png');
-			this.load.image('select','assets/select.png')
+			this.load.image('screen-mainmenu', 'assets/menu.png');
+			this.load.image('select','assets/selection.png')
             this.load.image('Score0','assets/Score0.png')
             this.load.image('Score1','assets/Score1.png')
             this.load.image('Score2','assets/Score2.png')

@@ -37,10 +37,15 @@
 (function() {
 
     var mapBG = new Map;
-    var listBG = ["sky","background1"];
+    var listBG = ["sky","background1","background2","background3","background4","background5","background6"];
     // Ajout des backgrounds
     mapBG.set("sky","assets/sky.png");
     mapBG.set("background1","assets/Background1.png");
+		mapBG.set("background2","assets/Background2.png");
+		mapBG.set("background3","assets/Background3.png");
+		mapBG.set("background4","assets/background4.png");
+		mapBG.set("background5","assets/Background5.png");
+		mapBG.set("background6","assets/Background6.png");
     // Remplissage du select
     var selectBG = $('#bg');
     for (img of listBG){
@@ -72,7 +77,7 @@
             dataCreation = JSON.parse($("#importJSON").val());
             dataCreation.imported = true;
             createGame(dataCreation);
-        } 
+        }
         catch (SyntaxError){
             alert ('Rentre un JSON')
         }
