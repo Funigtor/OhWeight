@@ -195,6 +195,9 @@ Bouffe.Game.prototype = {
           // text generation
           let text = aliment.sortOfItem+': ' +this.score.value.get(aliment.sortOfItem) +'/'+aliment.maxOf+'g';
           this.score.text.get(aliment.sortOfItem).setText(text);
+          if(this.score.value.get(aliment.sortOfItem) == aliment.maxOf){
+            this.score.text.get(aliment.sortOfItem).fill = '#00ff00';
+          }
           if (this.score.value.get(aliment.sortOfItem) > aliment.maxOf){
             this.score.text.get(aliment.sortOfItem).fill = '#ff0000';
             this.userData.score -= 2*aliment.sizeOfItem;
