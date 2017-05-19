@@ -24,11 +24,12 @@ Bouffe.Game.prototype = {
             //  We will enable physics for any object that is created in this group
             this.platforms.enableBody = true;
             // Here we create the ground.
-            this.ground = this.platforms.create(0, this.game.world.height - 16, 'ground');
-            //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-            this.ground.scale.setTo(20, 0.5);
-            //  This stops it from falling away when you jump on it
-            this.ground.body.immovable = true;
+            for(let i = 0; i < this.game.world.width/48; i++){
+              this.ground = this.platforms.create(i*48, this.game.world.height - 16, 'platform2');
+              this.ground.scale.setTo(1, 1.5);
+              this.ground.body.immovable = true;
+            }
+
 
             this.platform = this.levelData.platforms;
             this.generateTerrain() ;
