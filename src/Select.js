@@ -80,7 +80,7 @@ Bouffe.Select = function(game) {
             let userLevel = JSON.parse(needCheck);
             this.userData.level = "custom"
             this.userData.userLevel = userLevel;
-            this.startGame();
+            if (needCheck) this.startGame();
         } catch (SyntaxError) {
             alert("Le format de votre JSON est incorrect, ou ce n'est pas un JSON");
         }
