@@ -1,5 +1,5 @@
 Bouffe.EndLevel = function(game) {
-	var phrases = ["Ne mange pas trop de viande","Les légumes sont bons pour la santé","La junkfood est mauvaise pour la santé","Essaye de limiter le gras et le sel"]
+	var phrases = ["Ne mange pas trop de viande","Les légumes sont bons pour la santé","La junkfood est mauvaise pour la santé","Essaye de limiter le gras et le sel","Réfléchis bien de manger quelque chose","Les sucreries donnent des carries","Ne mange pas trop vite pour bien digérer.","Ne grignotte pas entre les repas","N'oublie pas de pratiquer une activité physique","Le poisson est moins gras que la viande","Bien manger te permettra de bien grandir.","Préfère un vrai fruit à un jus.","Les sodas sont très très sucrés."]
 	this.init = function(userData){
         this.userData = userData;
     }
