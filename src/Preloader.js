@@ -4,11 +4,12 @@ Bouffe.Preloader.prototype = {
 						this.load.image('youdied', 'assets/youdied.png');
             this.load.image('sky', 'assets/sky.png');
             this.load.image('background1', 'assets/Background1.png');
-						this.load.image('background2', 'assets/Background2.png');
-						this.load.image('background3', 'assets/Background3.png');
+						this.load.image('background2', 'assets/background2.png');
+						this.load.image('background3', 'assets/background3.png');
 						this.load.image('background4', 'assets/background4.png');
 						this.load.image('background5', 'assets/Background5.png');
-						this.load.image('background6', 'assets/Background6.png');
+						this.load.image('background6', 'assets/background6.png');
+                        this.load.image('background7', 'assets/background7.png');
             this.load.image('ground', 'assets/platform.png');
             this.load.image('platform1', 'assets/platform1.png')
             this.load.image('platform2', 'assets/platform2.png')
